@@ -5,7 +5,7 @@ import { createLights } from "./components/lights.js";
 import { createRenderer, setupARSession, setupARJS } from "./components/renderer.js";
 import { createScene } from "./components/scene.js";
 
-import { setupNavigationAreaGeometry } from "./components/navigation/navigationArea.js";
+// import { setupNavigationAreaGeometry } from "./components/navigation/navigationArea.js";
 import { createPathFindingWebXR } from "./components/navigation/pathfinding.js";
 
 import { Resizer } from "./systems/Resizer.js";
@@ -37,8 +37,8 @@ class IndoorNav {
 
     async initIndoorNav() {
         // setup geometry
-        const navigationAreaParent = setupNavigationAreaGeometry();
-        scene.add(navigationAreaParent);
+        // const navigationAreaParent = setupNavigationAreaGeometry();
+        // scene.add(navigationAreaParent);
 
         // setup image tracking WebXR
         const imageTrackingWebXR = createImageTrackingWebXR(renderer, navigationAreaParent);

@@ -1,5 +1,5 @@
 import { MeshStandardMaterial, Vector3, PlaneGeometry, TextureLoader, MeshBasicMaterial, Mesh, MathUtils, Group, BoxGeometry } from "three";
-import CasualFlapMapImageUrl from "/CasualFlatMap.png";
+// import CasualFlapMapImageUrl from "/CasualFlatMap.png";
 
 function setupNavigationAreaGeometry() {
     // create occluder material
@@ -20,14 +20,14 @@ function setupNavigationAreaGeometry() {
     navigationArea.add(createWallElement(new Vector3(2.9, 1, 4.06), new Vector3(0, 0, 0), new Vector3(4, 3, 0.06), occluderMaterial));
 
     // create floor
-    const floorGeometry = new PlaneGeometry(10.2, 8.5);
-    const floorTexture = new TextureLoader().load(CasualFlapMapImageUrl);
-    const floorMaterial = new MeshBasicMaterial({ map: floorTexture });
-    const floorPlaneMesh = new Mesh(floorGeometry, floorMaterial);
-    floorPlaneMesh.rotateX(MathUtils.degToRad(270));
-    floorPlaneMesh.renderOrder = 3;
+    // const floorGeometry = new PlaneGeometry(10.2, 8.5);
+    // const floorTexture = new TextureLoader().load(CasualFlapMapImageUrl);
+    // const floorMaterial = new MeshBasicMaterial({ map: floorTexture });
+    // const floorPlaneMesh = new Mesh(floorGeometry, floorMaterial);
+    // floorPlaneMesh.rotateX(MathUtils.degToRad(270));
+    // floorPlaneMesh.renderOrder = 3;
     // floorPlaneMesh.visible = false;
-    navigationArea.add(floorPlaneMesh);
+    // navigationArea.add(floorPlaneMesh);
 
     // navigation area parent for easier placement
     const navigationAreaParent = new Group();
@@ -45,4 +45,4 @@ function createWallElement(position, rotation, scale, occluderMaterial) {
     return occluderMesh;
 }
 
-export { setupNavigationAreaGeometry };
+// export { setupNavigationAreaGeometry };

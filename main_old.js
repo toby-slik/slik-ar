@@ -20,7 +20,7 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { ARButton } from "three/addons/webxr/ARButton.js";
-import CasualFlapMapImageUrl from "./CasualFlatMap.png";
+// import CasualFlapMapImageUrl from "./CasualFlatMap.png";
 
 let camera, scene, renderer, controls;
 let controller;
