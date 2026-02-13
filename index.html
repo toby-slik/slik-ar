@@ -1,88 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AR Indoor Navigation - WebXR</title>
+        <link href="/style.css" rel="stylesheet" type="text/css" />
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Location AR Room Objects</title>
-    <script src='https://aframe.io/releases/1.4.0/aframe.min.js'></script>
-    <script type='text/javascript'
-        src='https://raw.githack.com/AR-js-org/AR.js/3.4.7/three.js/build/ar-threex-location-only.js'></script>
-    <script type='text/javascript'
-        src='https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar.js'></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script>
-        window.addEventListener("load", () => {
-            const scene = document.querySelector("a-scene");
-            const camera = document.querySelector("[gps-new-camera]");
-            let spawned = false;
-
-            const offsets = [
-                { lat: 0.0001, lon: 0, color: "#ef4444", shape: "box", label: "North Box" },
-                { lat: 0, lon: 0.0001, color: "#22c55e", shape: "sphere", label: "East Sphere" },
-                { lat: -0.0001, lon: 0, color: "#f59e0b", shape: "cylinder", label: "South Cylinder" },
-                { lat: 0, lon: -0.0001, color: "#3b82f6", shape: "cone", label: "West Cone" }
-            ];
-
-            function addInteraction(entity) {
-                entity.classList.add("clickable");
-                entity.setAttribute("animation__press", "property: scale; dur: 160; dir: alternate; loop: 1; to: 1.2 1.2 1.2; startEvents: object-pressed");
-                entity.setAttribute("animation__spin", "property: rotation; dur: 450; easing: linear; to: 0 360 0; startEvents: object-pressed");
-                entity.addEventListener("click", () => {
-                    entity.emit("object-pressed");
-                });
-            }
-
-            function createPrimitive(offset, baseLat, baseLon) {
-                const el = document.createElement(`a-${offset.shape}`);
-                el.setAttribute("gps-new-entity-place", `latitude: ${Number(baseLat) + offset.lat}; longitude: ${Number(baseLon) + offset.lon}`);
-                el.setAttribute("color", offset.color);
-                el.setAttribute("scale", "0.5 0.5 0.5");
-                el.setAttribute("position", "0 1.5 0");
-                addInteraction(el);
-                scene.appendChild(el);
-
-                const label = document.createElement("a-text");
-                label.setAttribute("gps-new-entity-place", `latitude: ${Number(baseLat) + offset.lat}; longitude: ${Number(baseLon) + offset.lon}`);
-                label.setAttribute("value", offset.label);
-                label.setAttribute("position", "0 2 0");
-                label.setAttribute("align", "center");
-                label.setAttribute("scale", "1.5 1.5 1.5");
-                label.setAttribute("look-at", "[gps-new-camera]");
-                scene.appendChild(label);
-            }
-
-            function createModel(baseLat, baseLon) {
-                const model = document.createElement("a-entity");
-                model.setAttribute("gps-new-entity-place", `latitude: ${Number(baseLat) + 0.000075}; longitude: ${Number(baseLon) + 0.000075}`);
-                model.setAttribute("gltf-model", "./assets/magnemite/scene.gltf");
-                model.setAttribute("rotation", "0 180 0");
-                model.setAttribute("scale", "0.05 0.05 0.05");
-                model.setAttribute("position", "0 1 0");
-                addInteraction(model);
-                scene.appendChild(model);
-            }
-
-            camera.addEventListener("gps-camera-update-position", (event) => {
-                if (spawned) {
-                    return;
-                }
-
-                const { latitude, longitude } = event.detail.position;
-                offsets.forEach((offset) => createPrimitive(offset, latitude, longitude));
-                createModel(latitude, longitude);
-                spawned = true;
-            });
-        });
-    </script>
-</head>
-
-<body style='margin: 0; overflow: hidden;'>
-    <a-scene vr-mode-ui="enabled: false" arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false'
-        renderer='antialias: true; alpha: true'>
-        <a-camera gps-new-camera='gpsMinDistance: 1'>
-            <a-cursor rayOrigin="mouse" raycaster="objects: .clickable; near: 0; far: 10000">
-            </a-cursor>
-        </a-camera>
-    </a-scene>
-</body>
+        <script type="module" src="/main.js"></script>
+    </head>
+    <body>
+        <!-- images for webxr image tracking; still in draft so it may change in future -->
+        <img id="imgMarkerHiro" src="https://raw.githubusercontent.com/stemkoski/AR.js-examples/master/markers/hiro.png" alt="hiro" style="display: none" />
+        <img id="imgNFTEarth" src="https://raw.githubusercontent.com/stemkoski/AR.js-examples/master/images/earth-flat.jpg" alt="earth" style="display: none" />
+        <!-- spinner for AR.js load process -->
+        <!-- <div class="arjs-loader">
+            <div class="arjs-loader-spinner"></div>
+        </div> -->
+        <div id="scene-container">
+            <!-- Our <canvas> will be inserted here -->
+        </div>
+        <div id="wrapper">
+            <button id="kitchenTarget">KITCHEN</button>
+            <button id="livingRoomTarget">LIVING ROOM</button>
+        </div>
+    </body>
+</html>
