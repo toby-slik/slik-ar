@@ -234,10 +234,10 @@ function setupGeometry() {
     navigationArea.add(createWallElement(new THREE.Vector3(2.9, 1, 4.06), new THREE.Vector3(0, 0, 0), new THREE.Vector3(4, 3, 0.06)));
 
     // create floor
-    const floorGeometry = new THREE.PlaneGeometry(10.2, 8.5);
-    const floorTexture = new THREE.TextureLoader().load(CasualFlapMapImageUrl);
-    const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture });
-    const floorPlaneMesh = new THREE.Mesh(floorGeometry, floorMaterial);
+    // const floorGeometry = new THREE.PlaneGeometry(10.2, 8.5);
+    // const floorTexture = new THREE.TextureLoader().load(CasualFlapMapImageUrl);
+    // const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture });
+    // const floorPlaneMesh = new THREE.Mesh(floorGeometry, floorMaterial);
     floorPlaneMesh.rotateX(THREE.MathUtils.degToRad(270));
     floorPlaneMesh.renderOrder = 3;
     navigationArea.add(floorPlaneMesh);
